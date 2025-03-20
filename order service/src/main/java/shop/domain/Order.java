@@ -52,7 +52,7 @@ public class Order {
     //<<< Clean Arch / Port Method
     public static void sendMail(InventoryIncreased inventoryIncreased) {
 
-        Order order = repository().findByProductId(inventoryIncreased.getId());
+        Order order = repository().findByProductId(String.valueOf(inventoryIncreased.getId()));
         if (order != null) {
             order.setStatus("Inventory Increased");
             repository().save(order);

@@ -9,4 +9,4 @@ import shop.domain.*;
 public interface OrderRepository
     extends PagingAndSortingRepository<Order, Long> {
 
-    Order findByProductId(Long id);}
+    Order findByProductId(String id);}
