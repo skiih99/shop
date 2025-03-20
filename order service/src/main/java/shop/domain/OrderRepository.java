@@ -7,4 +7,6 @@ import shop.domain.*;
 //<<< PoEAA / Repository
 @RepositoryRestResource(collectionResourceRel = "orders", path = "orders")
 public interface OrderRepository
-    extends PagingAndSortingRepository<Order, Long> {}
+    extends PagingAndSortingRepository<Order, Long> {
+
+    Order findByProductId(Long id);}

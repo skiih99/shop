@@ -42,61 +42,31 @@ public class Delivery {
 
     //<<< Clean Arch / Port Method
     public static void startDelivery(OrderPlaced orderPlaced) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
         Delivery delivery = new Delivery();
+        delivery.setOrderId(String.valueOf(orderPlaced.getId()));
+        delivery.setCustomerId(orderPlaced.getCustomerId());
+        delivery.setProductId(orderPlaced.getProductId());
+        delivery.setQty(orderPlaced.getQty());
+        delivery.setAddress(orderPlaced.getAddress());
+        delivery.setStatus("Delivery Started");
+
         repository().save(delivery);
 
         DeliveryStarted deliveryStarted = new DeliveryStarted(delivery);
         deliveryStarted.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-
-        repository().findById(orderPlaced.get???()).ifPresent(delivery->{
-            
-            delivery // do something
-            repository().save(delivery);
-
-            DeliveryStarted deliveryStarted = new DeliveryStarted(delivery);
-            deliveryStarted.publishAfterCommit();
-
-         });
-        */
-
     }
 
-    //>>> Clean Arch / Port Method
-    //<<< Clean Arch / Port Method
+    
     public static void cancelADelivery(OrderCancelled orderCancelled) {
-        //implement business logic here:
 
-        /** Example 1:  new item 
-        Delivery delivery = new Delivery();
-        repository().save(delivery);
+        Delivery delivery = repository().findByOrderId(String.valueOf(orderCancelled.getId()));
 
-        DeliveryCancelled deliveryCancelled = new DeliveryCancelled(delivery);
-        deliveryCancelled.publishAfterCommit();
-        */
-
-        /** Example 2:  finding and process
-        
-
-        repository().findById(orderCancelled.get???()).ifPresent(delivery->{
-            
-            delivery // do something
+        if (delivery != null) {
+            delivery.setStatus("Delivery Cancelled");
             repository().save(delivery);
 
             DeliveryCancelled deliveryCancelled = new DeliveryCancelled(delivery);
             deliveryCancelled.publishAfterCommit();
-
-         });
-        */
-
+        }
     }
-    //>>> Clean Arch / Port Method
-
 }
-//>>> DDD / Aggregate Root

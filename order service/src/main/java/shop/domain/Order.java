@@ -51,75 +51,34 @@ public class Order {
 
     //<<< Clean Arch / Port Method
     public static void sendMail(InventoryIncreased inventoryIncreased) {
-        //implement business logic here:
 
-        /** Example 1:  new item 
-        Order order = new Order();
-        repository().save(order);
-
-        */
-
-        /** Example 2:  finding and process
-        
-
-        repository().findById(inventoryIncreased.get???()).ifPresent(order->{
-            
-            order // do something
+        Order order = repository().findByProductId(inventoryIncreased.getId());
+        if (order != null) {
+            order.setStatus("Inventory Increased");
             repository().save(order);
-
-
-         });
-        */
+        }
 
     }
 
-    //>>> Clean Arch / Port Method
-    //<<< Clean Arch / Port Method
     public static void updateOrderStatus(DeliveryStarted deliveryStarted) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        Order order = new Order();
-        repository().save(order);
-
-        */
-
-        /** Example 2:  finding and process
-        
-
-        repository().findById(deliveryStarted.get???()).ifPresent(order->{
+        repository().findById(Long.valueOf(deliveryStarted.getOrderId())).ifPresent(order->{
             
-            order // do something
+            order.setStatus("Delivery Started"); // do something
             repository().save(order);
 
-
          });
-        */
 
     }
 
     //>>> Clean Arch / Port Method
     //<<< Clean Arch / Port Method
     public static void updateOrderStatus(DeliveryCancelled deliveryCancelled) {
-        //implement business logic here:
-
-        /** Example 1:  new item 
-        Order order = new Order();
-        repository().save(order);
-
-        */
-
-        /** Example 2:  finding and process
-        
-
-        repository().findById(deliveryCancelled.get???()).ifPresent(order->{
+        repository().findById(Long.valueOf(deliveryCancelled.getOrderId())).ifPresent(order->{
             
-            order // do something
+            order.setStatus("Delivery Cancelled"); // do something
             repository().save(order);
 
-
          });
-        */
 
     }
     //>>> Clean Arch / Port Method

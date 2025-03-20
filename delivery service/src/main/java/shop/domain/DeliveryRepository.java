@@ -10,4 +10,6 @@ import shop.domain.*;
     path = "deliveries"
 )
 public interface DeliveryRepository
-    extends PagingAndSortingRepository<Delivery, Long> {}
+    extends PagingAndSortingRepository<Delivery, Long> {
+
+    Delivery findByOrderId(String orderId);}
