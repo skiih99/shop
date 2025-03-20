@@ -37,11 +37,13 @@ public class Inventory {
     //<<< Clean Arch / Port Method
     public static void decreaseInventory(DeliveryStarted deliveryStarted) {
         repository().findById(Long.valueOf(deliveryStarted.getProductId())).ifPresent(inventory->{
-            inventory.setQty(inventory.getQty() - deliveryStarted.getQty());
-            repository().save(inventory);
+            if (inventory.getQty() - deliveryStarted.getQty() >= 0) {
+                inventory.setQty(inventory.getQty() - deliveryStarted.getQty());
+                repository().save(inventory);
 
-            InventoryDecreased inventoryDecreased = new InventoryDecreased(inventory);
-            inventoryDecreased.publishAfterCommit();
+                InventoryDecreased inventoryDecreased = new InventoryDecreased(inventory);
+                inventoryDecreased.publishAfterCommit();
+            }
          });
 
     }
